@@ -4,7 +4,7 @@ require_once '../Controller.php';
 
 try {
     $controller = new Controller();
-    $controller->runAction($_GET['action'] ?? '');
+    $data = $controller->runAction($_GET['action'] ?? '');
 } catch (RuntimeException $exception) {
     echo "<pre>{$exception->getMessage()}</pre>";
     die;
@@ -57,25 +57,25 @@ try {
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">Вася</div>
-        <div class="col-md-2">0987654321</div>
-        <div class="col-md-2">test@test.com</div>
-        <div class="col-md-6">My message</div>
+<?php if (!empty($data)) : ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">Імя</div>
+            <div class="col-md-2">Телефон</div>
+            <div class="col-md-2">Почта</div>
+            <div class="col-md-6">Повідомлення</div>
+        </div>
+
+        <?php foreach ($data as $datum): ?>
+            <div class="row">
+                <div class="col-md-2"><?= $datum['name'] ?? 'not set' ?></div>
+                <div class="col-md-2"><?= $datum['phone'] ?? 'not set' ?></div>
+                <div class="col-md-2"><?= $datum['email'] ?? 'not set' ?></div>
+                <div class="col-md-6"><?= $datum['message'] ?? 'not set' ?></div>
+            </div>
+        <?php endforeach; ?>
     </div>
-    <div class="row">
-        <div class="col-md-2">Вася</div>
-        <div class="col-md-2">0987654321</div>
-        <div class="col-md-2">test@test.com</div>
-        <div class="col-md-6">My message</div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">Вася</div>
-        <div class="col-md-2">0987654321</div>
-        <div class="col-md-2">test@test.com</div>
-        <div class="col-md-6">My message</div>
-    </div>
-</div>
+<?php endif; ?>
+
 </body>
 </html>

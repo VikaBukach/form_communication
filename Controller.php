@@ -16,31 +16,20 @@ class Controller
         if (method_exists($this, 'action' . $action)) {
             return $this->{'action' . $action}();
         }
+
+        return $this->db->getAll();
     }
 
     public function actionCreate()
     {
         if ($_POST) {
             try {
-                // SQL-запит із плейсхолдерами
-                $sql = "INSERT INTO messages (name, phone, email, message) VALUES (:name, :phone, :email, :message)";
-
-                // Підготовка запиту
-                $stmt = $this->db->connection->prepare($sql);
-
-                // Дані для вставки
-                $data = [
-                    ':name' => $_POST['name'] ?? 'not set',
-                    ':phone' => $_POST['phone'] ?? 'not set',
-                    ':email' => $_POST['email'] ?? 'not set',
-                    ':message' => $_POST['message'] ?? 'not set',
-                ];
-
-                // Виконання запиту
-                $stmt->execute($data);
+                $this->db->createRow($_POST);
             } catch (PDOException $e) {
                 echo "Помилка вставки: " . $e->getMessage();
             }
         }
+
+        header("Location: /");
     }
 }
