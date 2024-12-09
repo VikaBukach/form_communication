@@ -1,14 +1,16 @@
 <?php
 
+require_once 'env.php';
+
 class Db
 {
     public $connection;
 
     public function __construct()
     {
-        $dsn = 'mysql:host=mysql;dbname=test_china;charset=utf8mb4';
-        $username = 'root';
-        $password = 'root';
+        $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8mb4';
+        $username = DB_USER;
+        $password = DB_PASS;
 
         try {
             $this->connection = new PDO($dsn, $username, $password);
