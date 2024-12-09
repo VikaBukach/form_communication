@@ -56,7 +56,6 @@ try {
     </div>
 </div>
 
-<?php if (!empty($data)) : ?>
 <div class="container">
     <table class="table table-hover">
         <thead>
@@ -79,7 +78,7 @@ try {
         </tbody>
     </table>
     </div>
-<?php endif; ?>
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

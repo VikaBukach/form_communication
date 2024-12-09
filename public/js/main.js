@@ -31,7 +31,9 @@ function updateMessages () {
         type: 'POST',
         url: '/?action=getAll',
         success: function(response) {
+
             $result = ``;
+
 
             for(let row of response) {
                 $result += `
@@ -43,6 +45,7 @@ function updateMessages () {
                 </tr>
                 `;
             }
+            console.log($result);
 
             $('#messages-container').html($result)
         },
