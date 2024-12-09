@@ -14,10 +14,11 @@ class Controller
     public function runAction(string $action)
     {
         if (method_exists($this, 'action' . $action)) {
-            return $this->{'action' . $action}();
-        }
+            header('Content-Type: application/json');
 
-        return $this->db->getAll();
+            echo $this->{'action' . $action}();
+            die;
+        }
     }
 
     public function actionCreate()
@@ -25,11 +26,16 @@ class Controller
         if ($_POST) {
             try {
                 $this->db->createRow($_POST);
+
+                return json_encode(['status' => 'ok']);
             } catch (PDOException $e) {
-                echo "Помилка вставки: " . $e->getMessage();
+                return json_encode(['status' => 'error', 'message' => $e->getMessage()]);
             }
         }
+    }
 
-        header("Location: /");
+    public function actionGetAll()
+    {
+        return json_encode($this->db->getAll());
     }
 }
