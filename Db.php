@@ -21,13 +21,10 @@ class Db
 
     public function createRow($data)
     {
-        // SQL-запит із плейсхолдерами
         $sql = "INSERT INTO messages (name, phone, email, message) VALUES (:name, :phone, :email, :message)";
 
-        // Підготовка запиту
         $stmt = $this->connection->prepare($sql);
 
-        // Дані для вставки
         $dataInsert = [
             ':name' => $data['name'] ?? 'not set',
             ':phone' => $data['phone'] ?? 'not set',
@@ -35,19 +32,15 @@ class Db
             ':message' => $data['message'] ?? 'not set',
         ];
 
-        // Виконання запиту
         $stmt->execute($dataInsert);
     }
 
     public function getAll()
     {
-        // SQL-запит із плейсхолдерами
         $sql = "SELECT id, name, phone, email, message FROM messages";
 
-        // Виконання запиту
         $stmt = $this->connection->query($sql);
 
-        // Вибірка результатів
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

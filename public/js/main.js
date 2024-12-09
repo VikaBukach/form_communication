@@ -51,5 +51,3 @@ function updateMessages () {
         }
     });
 }
-
-// setInterval(updateMessages, 5000);
