@@ -17,6 +17,7 @@ $('#contactForm').on('submit', (e) => {
         success: function(response) {
             $('#contactForm')[0].reset();
             $('#submit').prop('disabled', false);
+            updateMessages();
         },
         error: function() {
             alert('Error submitting form');
@@ -34,12 +35,12 @@ function updateMessages () {
 
             for(let row of response) {
                 $result += `
-                <div class="row">
-                    <div class="col-md-2">${row.name}</div>
-                    <div class="col-md-2">${row.phone}</div>
-                    <div class="col-md-2">${row.email}</div>
-                    <div class="col-md-6">${row.message}</div>
-                </div>
+                <tr>
+                    <td>${row.name}</td>
+                    <td>${row.phone}</td>
+                    <td>${row.email}</td>
+                    <td>${row.message}</td>
+                </tr>
                 `;
             }
 
@@ -51,4 +52,4 @@ function updateMessages () {
     });
 }
 
-setInterval(updateMessages, 5000);
+// setInterval(updateMessages, 5000);
